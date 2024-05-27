@@ -106,7 +106,7 @@ public class MedicineListAdapter extends RecyclerView.Adapter{
                             if(cal.before(now)){
                                 cal.add(Calendar.DATE, 1);
                             }
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(context,Integer.parseInt(user_id+""+((MedicineHolder) holder).id),intent,0);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(user_id+""+((MedicineHolder) holder).id), intent, PendingIntent.FLAG_IMMUTABLE);
                             alarmManager.set(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
 
                             Toast.makeText(context, "Reminder set for "+c.getString(1)+" on "+cal.get(Calendar.HOUR)+":"+cal.get(Calendar.MINUTE) + ", "+cal.get(Calendar.DATE)+"/"+cal.get(Calendar.MONTH)+"/"+cal.get(Calendar.YEAR), Toast.LENGTH_LONG).show();
@@ -121,8 +121,7 @@ public class MedicineListAdapter extends RecyclerView.Adapter{
                                         cal.add(Calendar.DATE, 7);
                                     }
 
-                                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context,Integer.parseInt(user_id+""+((MedicineHolder) holder).id + ""+ct),intent,0);
-                                    System.out.println(cal.get(Calendar.DAY_OF_WEEK));
+                                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(user_id+""+((MedicineHolder) holder).id + ""+ct), intent, PendingIntent.FLAG_IMMUTABLE);                                    System.out.println(cal.get(Calendar.DAY_OF_WEEK));
                                     alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY * 7,pendingIntent);
                                 }
                                 ct++;
@@ -135,16 +134,14 @@ public class MedicineListAdapter extends RecyclerView.Adapter{
 
                         String days = c.getString(4);
                         if(days.equals("0000000")){
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(context,Integer.parseInt(user_id+""+((MedicineHolder) holder).id),intent,0);
-                            alarmManager.cancel(pendingIntent);
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(user_id+""+((MedicineHolder) holder).id), intent, PendingIntent.FLAG_IMMUTABLE);                            alarmManager.cancel(pendingIntent);
                         }
                         else{
                             int ct=1;
                             for(char d : days.toCharArray()){
 
                                 if(d == '1'){
-                                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context,Integer.parseInt(user_id+""+((MedicineHolder) holder).id + ""+ct),intent,0);
-                                    alarmManager.cancel(pendingIntent);
+                                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(user_id+""+((MedicineHolder) holder).id + ""+ct), intent, PendingIntent.FLAG_IMMUTABLE);                                    alarmManager.cancel(pendingIntent);
                                 }
                                 ct++;
                             }
